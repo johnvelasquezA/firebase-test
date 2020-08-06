@@ -17,15 +17,35 @@ import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import en from '@angular/common/locales/en';
-
+import { AuthComponent } from './auth/auth.component';
+import { Routes, RouterModule } from '@angular/router';
+import { CountComponent } from './count/count.component';
+import { AuthGuard } from './auth.guard';
 registerLocaleData(en);
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'count', pathMatch: 'full'
+  },
+  {
+    path: 'count', component: CountComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'auth', component: AuthComponent
+  }
+];
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AuthComponent,
+    CountComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(routes),
     NzGridModule,
     NzButtonModule,
     NzStatisticModule,
