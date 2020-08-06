@@ -1,0 +1,22 @@
+<ng-container *ngIf="counts">
+  <nz-layout class="inner-layout">
+    <nz-header>Firebase Count App</nz-header>
+    <nz-content>
+      <ng-container *ngFor="let x of (counts | async)">
+        <nz-row [nzGutter]="16">
+          <nz-col [nzSpan]="12">
+            <nz-statistic [nzValue]="x.value" [nzTitle]="'Counts'" [nzPrefix]="prefixTpl">
+            </nz-statistic>
+            <ng-template #prefixTpl><i nz-icon nzType="like"></i></ng-template>
+          </nz-col>
+        </nz-row>
+        <nz-row>
+          <nz-col [nzSpan]="24">
+            <button nz-button nzType="primary" (click)="incrementCount(x)">Increment</button>
+            <button nz-button nzType="primary" (click)="decrementCount(x)">Decrement</button>
+          </nz-col>
+        </nz-row>
+      </ng-container>
+    </nz-content>
+  </nz-layout>
+</ng-container>
